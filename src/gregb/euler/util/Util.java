@@ -5,6 +5,8 @@ import gnu.trove.list.array.TIntArrayList;
 import gnu.trove.set.TIntSet;
 import gnu.trove.set.hash.TIntHashSet;
 
+import java.math.BigInteger;
+
 public class Util {
 
 	public static final int IGNORE = -1;
@@ -56,6 +58,28 @@ public class Util {
 		}
 
 		return sum;
+	}
+
+	public static BigInteger factorial(final int n) {
+
+		BigInteger factorial = BigInteger.ONE;
+		for (long i = 1; i <= n; i++) {
+			factorial = factorial.multiply(BigInteger.valueOf(i));
+		}
+
+		return factorial;
+	}
+
+	public static int[] getDigits(final BigInteger i) {
+		final String s = i.toString(10);
+
+		final int[] digits = new int[s.length()];
+
+		for (int j = 0; j < digits.length; j++) {
+			digits[j] = Character.digit(s.charAt(j), 10);
+		}
+
+		return digits;
 	}
 
 }
