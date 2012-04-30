@@ -7,6 +7,8 @@ import gnu.trove.set.hash.TIntHashSet;
 
 import java.math.BigInteger;
 
+import com.google.common.base.Function;
+
 public class Util {
 
 	public static final int IGNORE = -1;
@@ -70,6 +72,18 @@ public class Util {
 		return factorial;
 	}
 
+	public static int[] getDigits(final int i) {
+		final String s = Integer.toString(i);
+
+		final int[] digits = new int[s.length()];
+
+		for (int j = 0; j < digits.length; j++) {
+			digits[j] = Character.digit(s.charAt(j), 10);
+		}
+
+		return digits;
+	}
+
 	public static int[] getDigits(final BigInteger i) {
 		final String s = i.toString(10);
 
@@ -80,6 +94,16 @@ public class Util {
 		}
 
 		return digits;
+	}
+
+	public static int[] transform(final int[] source, final Function<Integer, Integer> transformFn) {
+		final int[] transformed = new int[source.length];
+
+		for (int i = 0; i < source.length; i++) {
+			transformed[i] = transformFn.apply(source[i]);
+		}
+
+		return transformed;
 	}
 
 }
