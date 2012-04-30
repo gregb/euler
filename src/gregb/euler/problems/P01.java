@@ -3,7 +3,7 @@ package gregb.euler.problems;
 import gregb.euler.util.Util;
 
 
-public class P1 {
+public class P01 {
 
 	public static void main(final String[] args) {
 

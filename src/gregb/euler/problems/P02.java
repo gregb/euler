@@ -5,7 +5,7 @@ import gregb.euler.util.Util;
 
 import java.util.Arrays;
 
-public class P2 {
+public class P02 {
 
 	public static void main(final String[] args) {
 		final TIntList seqTo90 = Util.fib(Util.IGNORE, 90);
