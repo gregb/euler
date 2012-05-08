@@ -1,7 +1,9 @@
 package gregb.euler.util;
 
 import gnu.trove.list.TIntList;
+import gnu.trove.list.TLongList;
 import gnu.trove.list.array.TIntArrayList;
+import gnu.trove.list.array.TLongArrayList;
 import gnu.trove.set.TIntSet;
 import gnu.trove.set.hash.TIntHashSet;
 
@@ -48,6 +50,18 @@ public class Util {
 		}
 
 		return multiples;
+	}
+
+	public static int sum(final long[] array, final int modulo) {
+		int sum = 0;
+
+		for (final long n : array) {
+			if (modulo == IGNORE || n % modulo == 0) {
+				sum += n;
+			}
+		}
+
+		return sum;
 	}
 
 	public static int sum(final int[] array, final int modulo) {
@@ -106,4 +120,58 @@ public class Util {
 		return transformed;
 	}
 
+	public static int[] range(final int min, final int max, final int step) {
+		final int[] range = new int[max - min + 1];
+
+		for (int i = min; i <= max; i = i + step) {
+			range[i - min] = i;
+		}
+
+		return range;
+	}
+
+	public static long[] range(final int min, final long max, final int step) {
+		final long[] range = new long[(int) (max - min + 1)];
+
+		for (long i = min; i <= max; i = i + step) {
+			range[(int) (i - min)] = i;
+		}
+
+		return range;
+	}
+
+	public static TLongList primeFactors(long n) {
+
+		final TLongList factors = new TLongArrayList();
+
+		for (int i = 2; i <= n / i; i++) {
+			while (n % i == 0) {
+				factors.add(i);
+				n = n / i;
+			}
+		}
+
+		if (n > 1) {
+			factors.add(n);
+		}
+
+		return factors;
+	}
+
+	public static TLongList primesBelow(final long max) {
+
+		final long[] sieve = Util.range(0, max, 1);
+		final TLongList primes = new TLongArrayList();
+
+		for (int i = 2; i <= max; i++) {
+			if (sieve[i] > 0) {
+				primes.add(i);
+				for (int j = i + i; j <= max; j = j + i) {
+					sieve[j] = 0;
+				}
+			}
+		}
+
+		return primes;
+	}
 }
