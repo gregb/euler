@@ -4,6 +4,8 @@ import gnu.trove.list.TIntList;
 import gnu.trove.list.TLongList;
 import gnu.trove.list.array.TIntArrayList;
 import gnu.trove.list.array.TLongArrayList;
+import gnu.trove.map.TIntLongMap;
+import gnu.trove.map.hash.TIntLongHashMap;
 import gnu.trove.set.TIntSet;
 import gnu.trove.set.hash.TIntHashSet;
 
@@ -174,4 +176,42 @@ public class Util {
 
 		return primes;
 	}
+
+	public static long lcm(final int[] numbers) {
+
+		final TIntLongMap maxPrimeFactorMap = new TIntLongHashMap();
+
+		for (final int i : numbers) {
+			final TLongList primeFactors = primeFactors(i);
+			final TIntLongMap primeFactorMap = new TIntLongHashMap();
+
+			for (final long factor : primeFactors.toArray()) {
+				long factorCount = primeFactorMap.get((int) factor);
+				factorCount++;
+				primeFactorMap.put((int) factor, factorCount);
+			}
+
+			for (final int factor : primeFactorMap.keys()) {
+				final int factorCount = (int) primeFactorMap.get(factor);
+				final int maxFactorCount = (int) maxPrimeFactorMap.get(factor);
+
+				if (factorCount > maxFactorCount) {
+					maxPrimeFactorMap.put(factor, factorCount);
+				}
+			}
+		}
+
+		long product = 1;
+
+		for (final int factor : maxPrimeFactorMap.keys()) {
+
+			final int maxFactorCount = (int) maxPrimeFactorMap.get(factor);
+			for (int i = 0; i < maxFactorCount; i++) {
+				product *= factor;
+			}
+		}
+
+		return product;
+	}
+
 }
